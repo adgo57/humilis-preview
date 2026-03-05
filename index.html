@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maison Médicale Humilis — Liège</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Karla:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        teal: {
+                            deep: '#187372',
+                            mid: '#008080',
+                            light: '#C8F3F5',
+                            pale: '#E6FAFA',
+                        },
+                        orange: {
+                            warm: '#FF8C00',
+                            light: '#FFF3E0',
+                            bright: '#FFB347',
+                        },
+                        olive: '#64854C',
+                        slate: '#333333',
+                        bone: '#F4F4F4',
+                    },
+                    fontFamily: {
+                        sora: ['Sora', 'sans-serif'],
+                        karla: ['Karla', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        * { scroll-behavior: smooth; }
+        body { font-family: 'Karla', sans-serif; color: #333; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Sora', sans-serif; }
+
+        /* Adinkra-inspired SVG pattern */
+        .adinkra-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.07'%3E%3Cpath d='M30 5 L35 15 L30 25 L25 15Z'/%3E%3Ccircle cx='30' cy='30' r='3'/%3E%3Cpath d='M30 35 L35 45 L30 55 L25 45Z'/%3E%3Cpath d='M5 30 L15 25 L25 30 L15 35Z'/%3E%3Cpath d='M35 30 L45 25 L55 30 L45 35Z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .adinkra-pattern-dark {
+            background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23187372' fill-opacity='0.06'%3E%3Cpath d='M40 10 L46 22 L40 34 L34 22Z'/%3E%3Ccircle cx='40' cy='40' r='4'/%3E%3Cpath d='M40 46 L46 58 L40 70 L34 58Z'/%3E%3Cpath d='M10 40 L22 34 L34 40 L22 46Z'/%3E%3Cpath d='M46 40 L58 34 L70 40 L58 46Z'/%3E%3Ccircle cx='12' cy='12' r='2'/%3E%3Ccircle cx='68' cy='12' r='2'/%3E%3Ccircle cx='12' cy='68' r='2'/%3E%3Ccircle cx='68' cy='68' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .geo-border {
+            background-image: repeating-linear-gradient(
+                90deg,
+                #FF8C00 0px, #FF8C00 12px,
+                #187372 12px, #187372 24px,
+                #008080 24px, #008080 36px,
+                #FF8C00 36px, #FF8C00 48px
+            );
+            height: 5px;
+        }
+
+        .geo-border-thick {
+            background-image: repeating-linear-gradient(
+                90deg,
+                #FF8C00 0px, #FF8C00 20px,
+                transparent 20px, transparent 24px,
+                #187372 24px, #187372 44px,
+                transparent 44px, transparent 48px
+            );
+            height: 6px;
+        }
+
+        /* Scroll animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-scale.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Stagger children */
+        .stagger-children .reveal:nth-child(1) { transition-delay: 0ms; }
+        .stagger-children .reveal:nth-child(2) { transition-delay: 120ms; }
+        .stagger-children .reveal:nth-child(3) { transition-delay: 240ms; }
+        .stagger-children .reveal:nth-child(4) { transition-delay: 360ms; }
+
+        /* Hero entrance */
+        @keyframes heroFadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes heroFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .hero-animate-1 { animation: heroFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both; }
+        .hero-animate-2 { animation: heroFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both; }
+        .hero-animate-3 { animation: heroFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both; }
+        .hero-animate-4 { animation: heroFadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both; }
+
+        /* Diamond decorative element */
+        .diamond {
+            width: 12px;
+            height: 12px;
+            background: #FF8C00;
+            transform: rotate(45deg);
+            display: inline-block;
+        }
+
+        /* Service card hover */
+        .service-card {
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(24, 115, 114, 0.15);
+        }
+
+        /* Nav backdrop */
+        .nav-scrolled {
+            background: rgba(255, 255, 255, 0.97) !important;
+            box-shadow: 0 2px 20px rgba(24, 115, 114, 0.1);
+        }
+
+        /* Kente-inspired side accent */
+        .kente-accent {
+            background: repeating-linear-gradient(
+                180deg,
+                #FF8C00 0px, #FF8C00 8px,
+                #187372 8px, #187372 16px,
+                #64854C 16px, #64854C 24px,
+                #008080 24px, #008080 32px
+            );
+            width: 6px;
+        }
+
+        /* Photo gallery */
+        .gallery-item {
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .gallery-item:hover {
+            transform: scale(1.03);
+        }
+
+        /* Urgences pulse */
+        @keyframes pulse-ring {
+            0% { box-shadow: 0 0 0 0 rgba(255, 140, 0, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 140, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 140, 0, 0); }
+        }
+        .pulse-orange {
+            animation: pulse-ring 2s infinite;
+        }
+
+        /* Mobile menu */
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        /* Geometric decorations */
+        .geo-circle {
+            border: 3px solid rgba(255, 140, 0, 0.2);
+            border-radius: 50%;
+            position: absolute;
+            pointer-events: none;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #F4F4F4; }
+        ::-webkit-scrollbar-thumb { background: #187372; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #008080; }
+    </style>
+</head>
+<body class="bg-bone overflow-x-hidden">
+
+    <!-- Geometric Top Border -->
+    <div class="geo-border fixed top-0 left-0 w-full z-[60]"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-[5px] left-0 w-full z-50 transition-all duration-500 bg-transparent">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#accueil" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 bg-teal-deep rounded-lg flex items-center justify-center relative overflow-hidden">
+                    <svg class="w-6 h-6 text-white relative z-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 3 L15 9 L12 15 L9 9Z" fill="currentColor" opacity="0.6"/>
+                        <circle cx="12" cy="12" r="2.5" fill="currentColor"/>
+                        <path d="M12 15 L15 21 L12 24 L9 21Z" fill="currentColor" opacity="0.3"/>
+                    </svg>
+                </div>
+                <div>
+                    <span class="font-sora font-bold text-teal-deep text-sm leading-none block tracking-tight">Humilis</span>
+                    <span class="font-karla text-[10px] text-teal-mid leading-none tracking-widest uppercase">Maison Médicale</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav -->
+            <div class="hidden lg:flex items-center gap-8">
+                <a href="#accueil" class="font-sora text-sm text-slate hover:text-teal-deep transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-orange-warm after:transition-all hover:after:w-full">Accueil</a>
+                <a href="#qui-sommes-nous" class="font-sora text-sm text-slate hover:text-teal-deep transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-orange-warm after:transition-all hover:after:w-full">Qui sommes-nous ?</a>
+                <a href="#services" class="font-sora text-sm text-slate hover:text-teal-deep transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-orange-warm after:transition-all hover:after:w-full">Services</a>
+                <a href="#photos" class="font-sora text-sm text-slate hover:text-teal-deep transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-orange-warm after:transition-all hover:after:w-full">Photos</a>
+                <a href="#contact" class="font-sora text-sm text-slate hover:text-teal-deep transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-orange-warm after:transition-all hover:after:w-full">Contact</a>
+                <a href="#urgences" class="font-sora text-sm font-semibold bg-orange-warm text-white px-5 py-2.5 rounded-full hover:bg-teal-deep transition-all duration-300 shadow-lg shadow-orange-warm/20 hover:shadow-teal-deep/20">Urgences</a>
+            </div>
+
+            <!-- Mobile Hamburger -->
+            <button id="menuToggle" class="lg:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5 relative z-[70]">
+                <span class="block w-6 h-0.5 bg-teal-deep transition-all duration-300 origin-center" id="bar1"></span>
+                <span class="block w-6 h-0.5 bg-teal-deep transition-all duration-300" id="bar2"></span>
+                <span class="block w-4 h-0.5 bg-orange-warm transition-all duration-300 origin-center" id="bar3"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu fixed inset-0 z-[55] bg-teal-deep adinkra-pattern flex items-center justify-center">
+        <div class="text-center space-y-8">
+            <a href="#accueil" class="block font-sora text-2xl text-white hover:text-orange-warm transition-colors mobile-link">Accueil</a>
+            <a href="#qui-sommes-nous" class="block font-sora text-2xl text-white hover:text-orange-warm transition-colors mobile-link">Qui sommes-nous ?</a>
+            <a href="#services" class="block font-sora text-2xl text-white hover:text-orange-warm transition-colors mobile-link">Services</a>
+            <a href="#photos" class="block font-sora text-2xl text-white hover:text-orange-warm transition-colors mobile-link">Photos</a>
+            <a href="#contact" class="block font-sora text-2xl text-white hover:text-orange-warm transition-colors mobile-link">Contact</a>
+            <a href="#urgences" class="block font-sora text-2xl font-bold text-orange-warm hover:text-white transition-colors mobile-link">Urgences</a>
+            <div class="pt-6">
+                <a href="tel:043445840" class="inline-flex items-center gap-2 text-teal-light font-karla">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                    04/344.58.40
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- HERO SECTION -->
+    <section id="accueil" class="relative min-h-screen flex items-center overflow-hidden">
+        <!-- Background image with overlay -->
+        <div class="absolute inset-0">
+            <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1600&q=80" alt="Equipe de santé" class="w-full h-full object-cover hero-animate-4">
+            <div class="absolute inset-0 bg-gradient-to-br from-teal-deep/90 via-teal-deep/80 to-teal-mid/70"></div>
+            <div class="absolute inset-0 adinkra-pattern"></div>
+        </div>
+
+        <!-- Geometric decorations -->
+        <div class="geo-circle w-[300px] h-[300px] -top-20 -right-20 hidden lg:block" style="border-color: rgba(255,140,0,0.15);"></div>
+        <div class="geo-circle w-[200px] h-[200px] bottom-20 -left-10 hidden lg:block" style="border-color: rgba(200,243,245,0.15);"></div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-6 py-32 lg:py-0 w-full">
+            <div class="max-w-3xl">
+                <!-- Decorative line -->
+                <div class="flex items-center gap-3 mb-8 hero-animate-1">
+                    <div class="diamond"></div>
+                    <div class="h-[2px] w-16 bg-orange-warm"></div>
+                    <span class="font-karla text-teal-light text-sm tracking-[0.2em] uppercase">Maison Médicale</span>
+                </div>
+
+                <h1 class="font-sora text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-6 hero-animate-1">
+                    Humilis
+                </h1>
+
+                <p class="font-sora text-xl md:text-2xl lg:text-3xl text-teal-light/90 font-light leading-relaxed mb-8 hero-animate-2">
+                    Ensemble, prenons soin de votre santé dans sa globalité
+                </p>
+
+                <p class="font-karla text-lg text-white/70 max-w-xl mb-10 hero-animate-3">
+                    Une équipe riche de la diversité des professions mises en commun vous propose des soins de santé intégrés, adaptés à vos besoins et d'excellente qualité.
+                </p>
+
+                <div class="flex flex-wrap gap-4 hero-animate-3">
+                    <a href="#services" class="inline-flex items-center gap-2 bg-orange-warm text-white font-sora font-semibold px-8 py-4 rounded-full hover:bg-white hover:text-teal-deep transition-all duration-300 shadow-xl shadow-orange-warm/30">
+                        Nos services
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                    </a>
+                    <a href="#contact" class="inline-flex items-center gap-2 border-2 border-white/30 text-white font-sora font-medium px-8 py-4 rounded-full hover:bg-white/10 hover:border-white/60 transition-all duration-300">
+                        Nous contacter
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom decorative strip -->
+        <div class="absolute bottom-0 left-0 w-full">
+            <svg class="w-full h-16 md:h-24" viewBox="0 0 1440 96" preserveAspectRatio="none" fill="none">
+                <path d="M0 96L1440 96L1440 40C1200 80 960 0 720 40C480 80 240 0 0 40Z" fill="#F4F4F4"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- QUI SOMMES-NOUS SECTION -->
+    <section id="qui-sommes-nous" class="py-24 lg:py-32 bg-bone relative">
+        <div class="absolute top-0 left-0 w-full adinkra-pattern-dark h-full"></div>
+        <div class="max-w-7xl mx-auto px-6 relative">
+            <!-- Section heading -->
+            <div class="text-center mb-20 reveal">
+                <div class="flex items-center justify-center gap-3 mb-4">
+                    <div class="h-[2px] w-12 bg-orange-warm"></div>
+                    <span class="font-karla text-orange-warm text-sm tracking-[0.2em] uppercase font-medium">Notre identité</span>
+                    <div class="h-[2px] w-12 bg-orange-warm"></div>
+                </div>
+                <h2 class="font-sora text-4xl md:text-5xl font-bold text-teal-deep mb-4">Qui sommes-nous ?</h2>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <!-- Image side -->
+                <div class="relative reveal-left">
+                    <div class="relative rounded-2xl overflow-hidden shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=800&q=80" alt="Équipe médicale diversifiée" class="w-full h-[450px] object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-teal-deep/40 to-transparent"></div>
+                    </div>
+                    <!-- Accent block -->
+                    <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-orange-warm/10 rounded-2xl -z-10"></div>
+                    <div class="absolute -top-6 -left-6 w-24 h-24 border-2 border-teal-deep/10 rounded-2xl -z-10"></div>
+                    <!-- Floating stat card -->
+                    <div class="absolute -bottom-4 left-8 bg-white rounded-xl shadow-lg p-5 border-l-4 border-orange-warm">
+                        <div class="font-sora text-3xl font-bold text-teal-deep">4</div>
+                        <div class="font-karla text-sm text-slate/70">disciplines<br>de santé</div>
+                    </div>
+                </div>
+
+                <!-- Text side -->
+                <div class="reveal-right">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="kente-accent h-16 rounded-full"></div>
+                        <h3 class="font-sora text-2xl font-semibold text-teal-deep">Une équipe pluridisciplinaire<br>à votre service</h3>
+                    </div>
+
+                    <p class="font-karla text-lg text-slate/80 leading-relaxed mb-6">
+                        La Maison Médicale Humilis rassemble des professionnels de santé aux compétences complémentaires. Médecins, infirmiers, kinésithérapeutes et travailleurs sociaux collaborent quotidiennement pour vous offrir une prise en charge globale et coordonnée.
+                    </p>
+
+                    <p class="font-karla text-lg text-slate/80 leading-relaxed mb-8">
+                        Notre richesse réside dans la diversité de notre équipe et notre engagement commun : placer votre santé au centre de nos préoccupations, en respectant vos besoins individuels.
+                    </p>
+
+                    <!-- Values -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-white rounded-xl p-5 border border-teal-light/30">
+                            <div class="w-10 h-10 bg-teal-light/30 rounded-lg flex items-center justify-center mb-3">
+                                <svg class="w-5 h-5 text-teal-deep" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                            </div>
+                            <h4 class="font-sora text-sm font-semibold text-teal-deep mb-1">Diversité</h4>
+                            <p class="font-karla text-xs text-slate/60">Équipe multiculturelle et pluridisciplinaire</p>
+                        </div>
+                        <div class="bg-white rounded-xl p-5 border border-teal-light/30">
+                            <div class="w-10 h-10 bg-orange-light rounded-lg flex items-center justify-center mb-3">
+                                <svg class="w-5 h-5 text-orange-warm" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                            </div>
+                            <h4 class="font-sora text-sm font-semibold text-teal-deep mb-1">Accessibilité</h4>
+                            <p class="font-karla text-xs text-slate/60">Soins au cabinet et à domicile</p>
+                        </div>
+                        <div class="bg-white rounded-xl p-5 border border-teal-light/30">
+                            <div class="w-10 h-10 bg-teal-light/30 rounded-lg flex items-center justify-center mb-3">
+                                <svg class="w-5 h-5 text-teal-deep" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                            </div>
+                            <h4 class="font-sora text-sm font-semibold text-teal-deep mb-1">Qualité</h4>
+                            <p class="font-karla text-xs text-slate/60">Soins intégrés d'excellence</p>
+                        </div>
+                        <div class="bg-white rounded-xl p-5 border border-teal-light/30">
+                            <div class="w-10 h-10 bg-orange-light rounded-lg flex items-center justify-center mb-3">
+                                <svg class="w-5 h-5 text-orange-warm" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            </div>
+                            <h4 class="font-sora text-sm font-semibold text-teal-deep mb-1">Communauté</h4>
+                            <p class="font-karla text-xs text-slate/60">Ancrage local à Liège</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section id="services" class="py-24 lg:py-32 relative overflow-hidden">
+        <!-- Teal background block -->
+        <div class="absolute top-0 left-0 w-full h-[400px] bg-teal-deep adinkra-pattern"></div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <!-- Section heading -->
+            <div class="text-center mb-20 reveal">
+                <div class="flex items-center justify-center gap-3 mb-4">
+                    <div class="h-[2px] w-12 bg-orange-warm"></div>
+                    <span class="font-karla text-orange-warm text-sm tracking-[0.2em] uppercase font-medium">Ce que nous offrons</span>
+                    <div class="h-[2px] w-12 bg-orange-warm"></div>
+                </div>
+                <h2 class="font-sora text-4xl md:text-5xl font-bold text-white mb-4">Nos Services</h2>
+                <p class="font-karla text-lg text-teal-light/80 max-w-2xl mx-auto">
+                    Tous nos soins sont exercés au cabinet ou au domicile si le patient ne peut pas se déplacer.
+                </p>
+            </div>
+
+            <!-- Services Grid -->
+            <div class="grid md:grid-cols-2 gap-8 stagger-children">
+                <!-- Médecine générale -->
+                <div class="service-card bg-white rounded-2xl overflow-hidden shadow-lg reveal">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=800&q=80" alt="Médecine générale" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-teal-deep/60 to-transparent"></div>
+                        <div class="absolute bottom-4 left-6">
+                            <div class="bg-orange-warm text-white font-sora font-bold text-xs px-3 py-1.5 rounded-full inline-block">01</div>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="font-sora text-2xl font-bold text-teal-deep mb-4">Médecine générale</h3>
+                        <p class="font-karla text-slate/70 mb-5 leading-relaxed">Prise en charge complète pour tous les âges, de la naissance à la fin de vie.</p>
+                        <div class="space-y-3">
+                            <div class="flex items-start gap-3">
+                                <div class="w-2 h-2 bg-orange-warm rounded-full mt-2 shrink-0"></div>
+                                <span class="font-karla text-sm text-slate/80"><strong class="text-teal-deep">Soins curatifs urgents</strong> — traumatismes, maladies aiguës</span>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="w-2 h-2 bg-teal-mid rounded-full mt-2 shrink-0"></div>
+                                <span class="font-karla text-sm text-slate/80"><strong class="text-teal-deep">Soins chroniques</strong> — diabète, hypertension, asthme</span>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="w-2 h-2 bg-olive rounded-full mt-2 shrink-0"></div>
+                                <span class="font-karla text-sm text-slate/80"><strong class="text-teal-deep">Soins préventifs</strong> — dépistages, vaccinations, contraception, frottis</span>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="w-2 h-2 bg-orange-warm rounded-full mt-2 shrink-0"></div>
+                                <span class="font-karla text-sm text-slate/80"><strong class="text-teal-deep">Soins palliatifs</strong> — accompagnement en fin de vie</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Soins infirmiers -->
+                <div class="service-card bg-white rounded-2xl overflow-hidden shadow-lg reveal">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=800&q=80" alt="Soins infirmiers" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-teal-deep/60 to-transparent"></div>
+                        <div class="absolute bottom-4 left-6">
+                            <div class="bg-orange-warm text-white font-sora font-bold text-xs px-3 py-1.5 rounded-full inline-block">02</div>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="font-sora text-2xl font-bold text-teal-deep mb-4">Soins infirmiers</h3>
+                        <p class="font-karla text-slate/70 mb-5 leading-relaxed">Des soins techniques réalisés avec professionnalisme et bienveillance.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-teal-light/30 text-teal-deep font-karla text-sm px-4 py-2 rounded-full">Prises de sang</span>
+                            <span class="bg-teal-light/30 text-teal-deep font-karla text-sm px-4 py-2 rounded-full">Injections</span>
+                            <span class="bg-teal-light/30 text-teal-deep font-karla text-sm px-4 py-2 rounded-full">Soins des plaies</span>
+                            <span class="bg-orange-light text-orange-warm font-karla text-sm px-4 py-2 rounded-full">Toilettes</span>
+                            <span class="bg-orange-light text-orange-warm font-karla text-sm px-4 py-2 rounded-full">Bandages</span>
+                            <span class="bg-teal-light/30 text-teal-deep font-karla text-sm px-4 py-2 rounded-full">Sutures</span>
+                            <span class="bg-teal-light/30 text-teal-deep font-karla text-sm px-4 py-2 rounded-full">Paramètres biologiques</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kinésithérapie -->
+                <div class="service-card bg-white rounded-2xl overflow-hidden shadow-lg reveal">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80" alt="Kinésithérapie" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-teal-deep/60 to-transparent"></div>
+                        <div class="absolute bottom-4 left-6">
+                            <div class="bg-orange-warm text-white font-sora font-bold text-xs px-3 py-1.5 rounded-full inline-block">03</div>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="font-sora text-2xl font-bold text-teal-deep mb-4">Kinésithérapie</h3>
+                        <p class="font-karla text-slate/70 mb-5 leading-relaxed">Rééducation et réhabilitation fonctionnelle pour retrouver votre mobilité et votre bien-être physique.</p>
+                        <div class="flex items-center gap-4 p-4 bg-teal-pale/50 rounded-xl">
+                            <div class="w-12 h-12 bg-teal-deep/10 rounded-full flex items-center justify-center shrink-0">
+                                <svg class="w-6 h-6 text-teal-deep" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                            </div>
+                            <p class="font-karla text-sm text-teal-deep/80">Séances disponibles au cabinet et à domicile pour les patients à mobilité réduite</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service social -->
+                <div class="service-card bg-white rounded-2xl overflow-hidden shadow-lg reveal">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=800&q=80" alt="Service social" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-teal-deep/60 to-transparent"></div>
+                        <div class="absolute bottom-4 left-6">
+                            <div class="bg-orange-warm text-white font-sora font-bold text-xs px-3 py-1.5 rounded-full inline-block">04</div>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="font-sora text-2xl font-bold text-teal-deep mb-4">Service social</h3>
+                        <p class="font-karla text-slate/70 mb-5 leading-relaxed">Accompagnement dans vos démarches administratives et sociales, aide à l'accès aux droits et orientation vers les services adaptés.</p>
+                        <div class="flex items-center gap-4 p-4 bg-orange-light/50 rounded-xl">
+                            <div class="w-12 h-12 bg-orange-warm/10 rounded-full flex items-center justify-center shrink-0">
+                                <svg class="w-6 h-6 text-orange-warm" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                            </div>
+                            <p class="font-karla text-sm text-slate/70">Écoute, guidance et soutien pour tous les aspects non-médicaux de votre parcours de santé</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PHOTOS SECTION -->
+    <section id="photos" class="py-24 lg:py-32 bg-white relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 reveal">
+                <div class="flex items-center justify-center gap-3 mb-4">
+                    <div class="h-[2px] w-12 bg-orange-warm"></div>
+                    <span class="font-karla text-orange-warm text-sm tracking-[0.2em] uppercase font-medium">Galerie</span>
+                    <div class="h-[2px] w-12 bg-orange-warm"></div>
+                </div>
+                <h2 class="font-sora text-4xl md:text-5xl font-bold text-teal-deep">Photos</h2>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4 reveal-scale">
+                <div class="gallery-item rounded-xl overflow-hidden row-span-2">
+                    <img src="https://images.unsplash.com/photo-1551190822-a9ce113ac100?w=600&q=80" alt="Centre médical" class="w-full h-full object-cover">
+                </div>
+                <div class="gallery-item rounded-xl overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&q=80" alt="Cabinet médical" class="w-full h-full object-cover aspect-square">
+                </div>
+                <div class="gallery-item rounded-xl overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=600&q=80" alt="Équipement médical" class="w-full h-full object-cover aspect-square">
+                </div>
+                <div class="gallery-item rounded-xl overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1666214280557-f1b5022eb634?w=600&q=80" alt="Consultation" class="w-full h-full object-cover aspect-square">
+                </div>
+                <div class="gallery-item rounded-xl overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1581056771107-24ca5f033842?w=600&q=80" alt="Soins de santé" class="w-full h-full object-cover aspect-square">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INFORMATIONS PRATIQUES / CONTACT -->
+    <section id="contact" class="py-24 lg:py-32 bg-bone relative">
+        <div class="absolute top-0 left-0 w-full adinkra-pattern-dark h-full"></div>
+        <div class="max-w-7xl mx-auto px-6 relative">
+            <div class="text-center mb-20 reveal">
+                <div class="flex items-center justify-center gap-3 mb-4">
+                    <div class="h-[2px] w-12 bg-orange-warm"></div>
+                    <span class="font-karla text-orange-warm text-sm tracking-[0.2em] uppercase font-medium">Nous trouver</span>
+                    <div class="h-[2px] w-12 bg-orange-warm"></div>
+                </div>
+                <h2 class="font-sora text-4xl md:text-5xl font-bold text-teal-deep mb-4">Contact & Informations</h2>
+            </div>
+
+            <div class="grid lg:grid-cols-5 gap-8">
+                <!-- Contact info cards -->
+                <div class="lg:col-span-2 space-y-6 reveal-left">
+                    <!-- Address -->
+                    <div class="bg-white rounded-2xl p-7 shadow-sm border border-teal-light/20 hover:shadow-md transition-shadow">
+                        <div class="flex items-start gap-5">
+                            <div class="w-14 h-14 bg-teal-deep rounded-xl flex items-center justify-center shrink-0">
+                                <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-sora text-lg font-semibold text-teal-deep mb-1">Adresse</h4>
+                                <p class="font-karla text-slate/70 leading-relaxed">Avenue Albert Mahiels 6<br>4020 Liège, Belgique</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Phone -->
+                    <div class="bg-white rounded-2xl p-7 shadow-sm border border-teal-light/20 hover:shadow-md transition-shadow">
+                        <div class="flex items-start gap-5">
+                            <div class="w-14 h-14 bg-orange-warm rounded-xl flex items-center justify-center shrink-0">
+                                <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-sora text-lg font-semibold text-teal-deep mb-1">Téléphone</h4>
+                                <a href="tel:043445840" class="font-karla text-xl text-orange-warm font-semibold hover:text-teal-deep transition-colors">04/344.58.40</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Home visits -->
+                    <div class="bg-teal-deep rounded-2xl p-7 shadow-lg adinkra-pattern">
+                        <div class="flex items-start gap-5">
+                            <div class="w-14 h-14 bg-white/10 rounded-xl flex items-center justify-center shrink-0 border border-white/20">
+                                <svg class="w-7 h-7 text-orange-warm" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-sora text-lg font-semibold text-white mb-1">Visites à domicile</h4>
+                                <p class="font-karla text-teal-light/80 leading-relaxed">Tous nos soins peuvent être exercés à domicile si le patient ne peut pas se déplacer. Contactez-nous pour organiser une visite.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Map -->
+                <div class="lg:col-span-3 reveal-right">
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg h-full min-h-[400px] border border-teal-light/20">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2532.1!2d5.58!3d50.62!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTDCsDM3JzEyLjAiTiA1wrAzNCc0OC4wIkU!5e0!3m2!1sfr!2sbe!4v1"
+                            width="100%"
+                            height="100%"
+                            style="border:0; min-height: 400px;"
+                            allowfullscreen=""
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- URGENCES SECTION -->
+    <section id="urgences" class="py-20 lg:py-28 bg-teal-deep relative overflow-hidden">
+        <div class="absolute inset-0 adinkra-pattern"></div>
+        <!-- Decorative circles -->
+        <div class="geo-circle w-[400px] h-[400px] -top-40 -right-40" style="border-color: rgba(255,140,0,0.1);"></div>
+        <div class="geo-circle w-[250px] h-[250px] -bottom-20 -left-20" style="border-color: rgba(200,243,245,0.08);"></div>
+
+        <div class="max-w-4xl mx-auto px-6 text-center relative z-10 reveal">
+            <div class="inline-flex items-center gap-2 bg-orange-warm/20 text-orange-warm font-sora text-sm font-semibold px-5 py-2.5 rounded-full mb-8 pulse-orange">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+                Urgences
+            </div>
+
+            <h2 class="font-sora text-3xl md:text-5xl font-bold text-white mb-6">En cas d'urgence</h2>
+            <p class="font-karla text-lg text-teal-light/80 max-w-2xl mx-auto mb-10 leading-relaxed">
+                Pour toute urgence médicale en dehors de nos heures d'ouverture, veuillez contacter les services d'urgence ou appeler notre numéro principal pour le message de garde.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-5">
+                <a href="tel:043445840" class="inline-flex items-center gap-3 bg-orange-warm text-white font-sora font-bold text-lg px-10 py-5 rounded-full hover:bg-white hover:text-teal-deep transition-all duration-300 shadow-xl shadow-orange-warm/30 hover:shadow-white/20">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                    04/344.58.40
+                </a>
+                <a href="tel:112" class="inline-flex items-center gap-3 border-2 border-white/30 text-white font-sora font-semibold text-lg px-10 py-5 rounded-full hover:bg-white/10 hover:border-white transition-all duration-300">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                    Appeler le 112
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate text-white relative">
+        <div class="geo-border-thick"></div>
+        <div class="max-w-7xl mx-auto px-6 py-16">
+            <div class="grid md:grid-cols-3 gap-12">
+                <!-- Brand -->
+                <div>
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 bg-teal-deep rounded-lg flex items-center justify-center">
+                            <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M12 3 L15 9 L12 15 L9 9Z" fill="currentColor" opacity="0.6"/>
+                                <circle cx="12" cy="12" r="2.5" fill="currentColor"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <span class="font-sora font-bold text-white text-base block">Humilis</span>
+                            <span class="font-karla text-[10px] text-white/50 tracking-widest uppercase">Maison Médicale</span>
+                        </div>
+                    </div>
+                    <p class="font-karla text-white/50 text-sm leading-relaxed">
+                        Ensemble, prenons soin de votre santé dans sa globalité. Des soins intégrés, adaptés et de qualité.
+                    </p>
+                </div>
+
+                <!-- Quick links -->
+                <div>
+                    <h4 class="font-sora text-sm font-semibold uppercase tracking-wider text-orange-warm mb-6">Navigation</h4>
+                    <div class="space-y-3">
+                        <a href="#accueil" class="block font-karla text-white/60 hover:text-white transition-colors text-sm">Accueil</a>
+                        <a href="#qui-sommes-nous" class="block font-karla text-white/60 hover:text-white transition-colors text-sm">Qui sommes-nous ?</a>
+                        <a href="#services" class="block font-karla text-white/60 hover:text-white transition-colors text-sm">Services</a>
+                        <a href="#photos" class="block font-karla text-white/60 hover:text-white transition-colors text-sm">Photos</a>
+                        <a href="#contact" class="block font-karla text-white/60 hover:text-white transition-colors text-sm">Contact</a>
+                    </div>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 class="font-sora text-sm font-semibold uppercase tracking-wider text-orange-warm mb-6">Contact</h4>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <svg class="w-4 h-4 text-teal-mid shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                            <span class="font-karla text-white/60 text-sm">Avenue Albert Mahiels 6, 4020 Liège</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <svg class="w-4 h-4 text-teal-mid shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                            <a href="tel:043445840" class="font-karla text-white/60 text-sm hover:text-orange-warm transition-colors">04/344.58.40</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+                <p class="font-karla text-white/30 text-xs">&copy; 2026 Maison Médicale Humilis. Tous droits réservés.</p>
+                <div class="flex items-center gap-2">
+                    <div class="diamond" style="width:6px;height:6px;background:#FF8C00;"></div>
+                    <span class="font-karla text-white/30 text-xs">Liège, Belgique</span>
+                    <div class="diamond" style="width:6px;height:6px;background:#187372;"></div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll reveal animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -60px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 80) {
+                navbar.classList.add('nav-scrolled');
+            } else {
+                navbar.classList.remove('nav-scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const bar1 = document.getElementById('bar1');
+        const bar2 = document.getElementById('bar2');
+        const bar3 = document.getElementById('bar3');
+        let menuOpen = false;
+
+        menuToggle.addEventListener('click', () => {
+            menuOpen = !menuOpen;
+            mobileMenu.classList.toggle('open');
+
+            if (menuOpen) {
+                bar1.style.transform = 'rotate(45deg) translate(4px, 4px)';
+                bar2.style.opacity = '0';
+                bar3.style.transform = 'rotate(-45deg) translate(2px, -2px)';
+                bar3.style.width = '24px';
+                bar1.style.background = '#fff';
+                bar3.style.background = '#fff';
+                document.body.style.overflow = 'hidden';
+            } else {
+                bar1.style.transform = '';
+                bar2.style.opacity = '1';
+                bar3.style.transform = '';
+                bar3.style.width = '';
+                bar1.style.background = '';
+                bar3.style.background = '';
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                menuOpen = false;
+                mobileMenu.classList.remove('open');
+                bar1.style.transform = '';
+                bar2.style.opacity = '1';
+                bar3.style.transform = '';
+                bar3.style.width = '';
+                bar1.style.background = '';
+                bar3.style.background = '';
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 70;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
